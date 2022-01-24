@@ -1,0 +1,25 @@
+[
+  {
+    "Name": "findinfolder",
+    "Description": "Search for a term in all files",
+    "Tags": [
+      "CRTL+SHIFT+F",
+      "find-in-folder",
+      "find in folder",
+      "find folder",
+      "search folder",
+      "search",
+      "find"
+    ],
+    "Website": "https://gitlab.com/taconi/micro-findinfolder",
+    "Versions": [
+      {
+        "Version": "0.1.0",
+        "Url": "https://gitlab.com/taconi/micro-findinfolder/-/archive/v0.1.0/micro-findinfolder-v0.1.0.zip",
+        "Require": {
+          "micro": ">=2.0.0"
+        }
+      }
+    ]
+  }
+]
