@@ -7,9 +7,9 @@ local buffer = import("micro/buffer")
 local shell = import("micro/shell")
 
 function  findinfolder(bp)
-  local command = "bash -c \"rg . | fzf --layout=reverse  --color=dark --preview='cat $(echo $(echo {} | cut -d':' -f1 ))'| cut -d':' -f1\""
+  local command = "bash -c \"rg --no-ignore-parent --iglob='!.git' -.n . | fzf --layout=reverse  --color=dark --preview='echo -n {} | cut -d':' -f1 | xargs -r bat --style=numbers --color=always'| cut -d':' -f1\""
   local output, err = shell.RunInteractiveShell(command, false, true)
-  if err ~= nil then
+  if err ~= nil or output == "" then
     micro.InfoBar():Error(output)
   else
     findOutput(output, bp)
