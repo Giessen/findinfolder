@@ -4,7 +4,7 @@ Support searching for a term recursively in all files in all directories from th
 ## Installation
 
 ### Prerequisites
-You need to install [ripgrep](https://github.com/BurntSushi/ripgrep) and [fzf](https://github.com/junegunn/fzf) to use this plugin.
+You need to install [ripgrep](https://github.com/BurntSushi/ripgrep), [bat](https://github.com/sharkdp/bat) and [fzf](https://github.com/junegunn/fzf) to use this plugin.
 
 ### Settings
 Add this repo as a **pluginrepos** option in the **~/.config/micro/settings.json** file (it is necessary to restart the micro after this change):
