@@ -6,28 +6,64 @@ local config = import("micro/config")
 local buffer = import("micro/buffer")
 local shell = import("micro/shell")
 
-function  findinfolder(bp)
-  local command = "bash -c \"rg . | fzf --layout=reverse  --color=dark --preview='cat $(echo $(echo {} | cut -d':' -f1 ))'| cut -d':' -f1\""
+function  findInFolder(bp, mode)
+  local command = "bash -c \"rg --no-ignore-parent --iglob='!.git' -.n . | fzf -x +i -n 2 --layout=reverse  --color=dark --preview='echo -n {} | cut -d':' -f1 | xargs -r bat --style=numbers --color=always'| cut -d':' -f1,2\""
   local output, err = shell.RunInteractiveShell(command, false, true)
-  if err ~= nil then
+  if err ~= nil or output == "" then
     micro.InfoBar():Error(output)
   else
-    findOutput(output, bp)
+    findOutput(bp, output, mode)
   end
 end
 
-function findOutput(output, bp)
-  output = strings.TrimSpace(output)
+function findOutput(bp, output, mode)
+  output = strings.Split(strings.TrimSpace(output), ':')
+
+  local filename, linenumber = output[1], tonumber(output[2]) or 1
+
   if output ~= "" and output ~= nil then
-    local buf, err = buffer.NewBufferFromFile(output)
-    if err == nil then
-      bp:OpenBuffer(buf)
+    local buf, err = buffer.NewBufferFromFile(filename)
+
+    if err ~= nil then
+      micro.InfoBar():Error(err)
+    else
+      openBuf(bp, buf, mode, linenumber)
     end
   end
 end
 
-function init()
-    config.MakeCommand("findinfolder", findinfolder, config.NoComplete)
-    config.TryBindKey("Alt-f", "lua:findinfolder.findinfolder", false)
+function openBuf(bp, buf, mode, linenumber)
+  if mode == 0 then
+    bp:OpenBuffer(buf)
+  elseif mode == 1 then
+    bp = bp:HSplitBuf(buf)
+  elseif mode == 2 then
+    bp = bp:VSplitBuf(buf)
+  elseif mode == 3 then
+    local parsecursor = config.GetGlobalOption("parsecursor")
+    bp:HandleCommand("set parsecursor true")
+
+    bp:HandleCommand(("tab %s:%d:0"):format(buf.AbsPath, linenumber))
+
+    bp:HandleCommand(("set parsecursor %s"):format(parsecursor))
+  end
+
+  if mode ~= 3 then
+    bp.Cursor.Y = linenumber - 1
+    bp:StartOfText()
+  end
 end
 
+function init()
+    config.MakeCommand("fif", function(bp) findInFolder(bp, 0) end, config.NoComplete)
+    config.MakeCommand("fifh", function(bp) findInFolder(bp, 1) end, config.NoComplete)
+    config.MakeCommand("fifv", function(bp) findInFolder(bp, 2) end, config.NoComplete)
+    config.MakeCommand("fift", function(bp) findInFolder(bp, 3) end, config.NoComplete)
+
+    local overwrite = false
+
+    config.TryBindKey("Alt-f", "command:fif", overwrite)
+    config.TryBindKey("Alt-h", "command:fifh", overwrite)
+    config.TryBindKey("Alt-v", "command:fifv", overwrite)
+    config.TryBindKey("Alt-t", "command:fift", overwrite)
+end
