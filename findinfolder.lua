@@ -36,15 +36,22 @@ function openBuf(bp, buf, mode, linenumber)
   if mode == 0 then
     bp:OpenBuffer(buf)
   elseif mode == 1 then
-  	bp = bp:HSplitBuf(buf)
+    bp = bp:HSplitBuf(buf)
   elseif mode == 2 then
-  	bp = bp:VSplitBuf(buf)
+    bp = bp:VSplitBuf(buf)
   elseif mode == 3 then
-    bp:HandleCommand("tab "..buf.AbsPath)
+    local parsecursor = config.GetGlobalOption("parsecursor")
+    bp:HandleCommand("set parsecursor true")
+
+    bp:HandleCommand(("tab %s:%d:0"):format(buf.AbsPath, linenumber))
+
+    bp:HandleCommand(("set parsecursor %s"):format(parsecursor))
   end
 
-  bp.Cursor.Y = linenumber - 1
-  bp:StartOfText()
+  if mode ~= 3 then
+    bp.Cursor.Y = linenumber - 1
+    bp:StartOfText()
+  end
 end
 
 function init()
