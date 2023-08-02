@@ -60,6 +60,10 @@ function init()
     config.MakeCommand("fifv", function(bp) findInFolder(bp, 2) end, config.NoComplete)
     config.MakeCommand("fift", function(bp) findInFolder(bp, 3) end, config.NoComplete)
 
-    config.TryBindKey("Alt-f", "command:fif", false)
-end
+    local overwrite = false
 
+    config.TryBindKey("Alt-f", "command:fif", overwrite)
+    config.TryBindKey("Alt-h", "command:fifh", overwrite)
+    config.TryBindKey("Alt-v", "command:fifv", overwrite)
+    config.TryBindKey("Alt-t", "command:fift", overwrite)
+end
