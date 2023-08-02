@@ -14,6 +14,13 @@
     "Website": "https://gitlab.com/taconi/micro-findinfolder",
     "Versions": [
       {
+        "Version": "1.1.0",
+        "Url": "https://gitlab.com/taconi/micro-findinfolder/-/archive/v1.1.0/micro-findinfolder-v1.1.0.zip",
+        "Require": {
+          "micro": ">=2.0.11"
+        }
+      },
+      {
         "Version": "1.0.0",
         "Url": "https://gitlab.com/taconi/micro-findinfolder/-/archive/v1.0.0/micro-findinfolder-v1.0.0.zip",
         "Require": {
