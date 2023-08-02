@@ -40,18 +40,12 @@ function openBuf(bp, buf, mode, linenumber)
   elseif mode == 2 then
     bp = bp:VSplitBuf(buf)
   elseif mode == 3 then
-    local parsecursor = config.GetGlobalOption("parsecursor")
-    bp:HandleCommand("set parsecursor true")
-
-    bp:HandleCommand(("tab %s:%d:0"):format(buf.AbsPath, linenumber))
-
-    bp:HandleCommand(("set parsecursor %s"):format(parsecursor))
+    bp:NewTabCmd({buf.AbsPath})
+    bp = micro.CurPane()
   end
 
-  if mode ~= 3 then
-    bp.Cursor.Y = linenumber - 1
-    bp:StartOfText()
-  end
+  bp.Cursor.Y = linenumber - 1
+  bp:StartOfText()
 end
 
 function init()
