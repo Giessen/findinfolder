@@ -7,7 +7,7 @@ local buffer = import("micro/buffer")
 local shell = import("micro/shell")
 
 function  findInFolder(bp, mode)
-  local command = "bash -c \"rg --no-ignore-parent --iglob='!.git' -.n . | fzf -x +i -n 2 --layout=reverse  --color=dark --preview='echo -n {} | cut -d':' -f1 | xargs -r bat --style=numbers --color=always'| cut -d':' -f1,2\""
+  local command = "sh -c \"rg --no-ignore-parent --color='always' --iglob='!.git' -.n .|fzf -x +i -n 2 --ansi --prompt='Find >' --layout=reverse --color=dark --preview='echo -n {}|cut -d':' -f1|xargs -r bat -f --style=numbers,changes,grid'|cut -d':' -f1,2\""
   local output, err = shell.RunInteractiveShell(command, false, true)
   if err ~= nil or output == "" then
     micro.InfoBar():Error(output)
