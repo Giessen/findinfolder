@@ -14,6 +14,13 @@
     "Website": "https://codeberg.org/micro-plugins/findinfolder",
     "Versions": [
       {
+        "Version": "1.1.1",
+        "Url": "https://codeberg.org/micro-plugins/findinfolder/archive/v1.1.1.zip",
+        "Require": {
+          "micro": ">=2.0.12"
+        }
+      },
+      {
         "Version": "1.1.0",
         "Url": "https://codeberg.org/micro-plugins/findinfolder/archive/v1.1.0.zip",
         "Require": {
