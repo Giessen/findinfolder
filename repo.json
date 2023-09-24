@@ -11,25 +11,25 @@
       "search",
       "find"
     ],
-    "Website": "https://gitlab.com/taconi/micro-findinfolder",
+    "Website": "https://codeberg.org/micro-plugins/findinfolder",
     "Versions": [
       {
         "Version": "1.1.0",
-        "Url": "https://gitlab.com/taconi/micro-findinfolder/-/archive/v1.1.0/micro-findinfolder-v1.1.0.zip",
+        "Url": "https://codeberg.org/micro-plugins/findinfolder/archive/v1.1.0.zip",
         "Require": {
           "micro": ">=2.0.11"
         }
       },
       {
         "Version": "1.0.0",
-        "Url": "https://gitlab.com/taconi/micro-findinfolder/-/archive/v1.0.0/micro-findinfolder-v1.0.0.zip",
+        "Url": "https://codeberg.org/micro-plugins/findinfolder/archive/v1.0.0.zip",
         "Require": {
           "micro": ">=2.0.11"
         }
       },
       {
         "Version": "0.1.0",
-        "Url": "https://gitlab.com/taconi/micro-findinfolder/-/archive/v0.1.0/micro-findinfolder-v0.1.0.zip",
+        "Url": "https://codeberg.org/micro-plugins/findinfolder/archive/v0.1.0.zip",
         "Require": {
           "micro": ">=2.0.0"
         }
