@@ -1,4 +1,4 @@
-VERSION = "1.1.0"
+VERSION = "1.1.1"
 
 local strings = import("strings")
 local micro = import("micro")
